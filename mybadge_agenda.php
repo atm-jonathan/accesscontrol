@@ -18,7 +18,7 @@
 
 /**
  *  \file       mybadge_agenda.php
- *  \ingroup    sigrebadge
+ *  \ingroup    accesscontrol
  *  \brief      Tab of events on MyBadge
  */
 
@@ -76,11 +76,11 @@ if (!$res) {
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-dol_include_once('/sigrebadge/class/mybadge.class.php');
-dol_include_once('/sigrebadge/lib/sigrebadge_mybadge.lib.php');
+dol_include_once('/accesscontrol/class/mybadge.class.php');
+dol_include_once('/accesscontrol/lib/accesscontrol_mybadge.lib.php');
 
 // Load translation files required by the page
-$langs->loadLangs(array("sigrebadge@sigrebadge", "other"));
+$langs->loadLangs(array("accesscontrol@accesscontrol", "other"));
 
 // Get parameters
 $id = GETPOST('id', 'int');
@@ -121,7 +121,7 @@ if (!$sortorder) {
 // Initialize technical objects
 $object = new MyBadge($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->sigrebadge->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $conf->accesscontrol->dir_output.'/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array($object->element.'agenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -129,15 +129,15 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->sigrebadge->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity]."/".$object->id;
+	$upload_dir = $conf->accesscontrol->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity]."/".$object->id;
 }
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
 $enablepermissioncheck = 0;
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('sigrebadge', 'mybadge', 'read');
-	$permissiontoadd = $user->hasRight('sigrebadge', 'mybadge', 'write');
+	$permissiontoread = $user->hasRight('accesscontrol', 'mybadge', 'read');
+	$permissiontoadd = $user->hasRight('accesscontrol', 'mybadge', 'write');
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1;
@@ -148,7 +148,7 @@ if ($enablepermissioncheck) {
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->module, $object->id, $object->table_element, $object->element, 'fk_soc', 'rowid', $isdraft);
-if (!isModEnabled("sigrebadge")) {
+if (!isModEnabled("accesscontrol")) {
 	accessforbidden();
 }
 if (!$permissiontoread) {
@@ -193,7 +193,7 @@ if ($object->id > 0) {
 	//$title = $object->ref." - ".$langs->trans("Agenda");
 	$help_url = 'EN:Module_Agenda_En|DE:Modul_Terminplanung';
 
-	llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-sigrebadge page-card_agenda');
+	llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-accesscontrol page-card_agenda');
 
 	if (isModEnabled('notification')) {
 		$langs->load("mails");
@@ -205,7 +205,7 @@ if ($object->id > 0) {
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="'.dol_buildpath('/sigrebadge/mybadge_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.dol_buildpath('/accesscontrol/mybadge_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	/*

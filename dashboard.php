@@ -19,9 +19,9 @@
  */
 
 /**
- *    \file       htdocs/sigrebadge/template/index.php
- *    \ingroup    sigrebadge
- *    \brief      Home page of sigrebadge top menu
+ *    \file       htdocs/accesscontrol/template/index.php
+ *    \ingroup    accesscontrol
+ *    \brief      Home page of accesscontrol top menu
  */
 
 // Load Dolibarr environment
@@ -48,9 +48,9 @@ if (! $res) { die("Include of main fails");
 }
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
-dol_include_once('sigrebadge/class/sigrebadge_infobox.class.php');
-dol_include_once('sigrebadge/class/sigrebadge_modele_boxes.class.php');
-dol_include_once('sigrebadge/lib/dashboard.lib.php');
+dol_include_once('accesscontrol/class/accesscontrol_infobox.class.php');
+dol_include_once('accesscontrol/class/accesscontrol_modele_boxes.class.php');
+dol_include_once('accesscontrol/lib/dashboard.lib.php');
 
 // If not defined, we select menu "home"
 $_GET['mainmenu']=GETPOST('mainmenu', 'aZ09')?GETPOST('mainmenu', 'aZ09'):'home';
@@ -58,7 +58,7 @@ $action=GETPOST('action', 'aZ09');
 
 $hookmanager->initHooks(array('index'));
 
-$permissiontoread = $user->hasRight("sigrebadge", "mybadge", "read");
+$permissiontoread = $user->hasRight("accesscontrol", "mybadge", "read");
 
 // Fixed global boxes
 $globalboxes = array();
@@ -66,13 +66,13 @@ $globalboxes = array();
 // Color theme : (#96BBBB, #FFAA56, #966EA2, #C19875)
 
 if ($permissiontoread) {
-    $globalboxes[] = array('name' => mb_strtoupper(html_entity_decode($langs->trans('MenuSigrebadge')), 'UTF-8'), 'color' =>'#C19875',
-        'url' => dol_buildpath('/sigrebadge/mybadge_list.php', 1),
-        'url_add' => dol_buildpath('/sigrebadge/mybadge_card.php?action=create', 1),
+    $globalboxes[] = array('name' => mb_strtoupper(html_entity_decode($langs->trans('MenuAccesscontrol')), 'UTF-8'), 'color' =>'#C19875',
+        'url' => dol_buildpath('/accesscontrol/mybadge_list.php', 1),
+        'url_add' => dol_buildpath('/accesscontrol/mybadge_card.php?action=create', 1),
         'right' => $permissiontoread,
         'lines' => array(
-            array('title' => $langs->trans('MenuImmoActiveBadge'), 'value' => getBadgeNumber(4), 'url' => dol_buildpath('/sigrebadge/mybadge_list.php', 1).'?search_status=4'),
-			array('title' => $langs->trans('MenuImmoNotActiveBadge'), 'value' => getBadgeNumber(8), 'url' => dol_buildpath('/sigrebadge/mybadge_list.php', 1).'?search_status=8'),
+            array('title' => $langs->trans('MenuImmoActiveBadge'), 'value' => getBadgeNumber(4), 'url' => dol_buildpath('/accesscontrol/mybadge_list.php', 1).'?search_status=4'),
+			array('title' => $langs->trans('MenuImmoNotActiveBadge'), 'value' => getBadgeNumber(8), 'url' => dol_buildpath('/accesscontrol/mybadge_list.php', 1).'?search_status=8'),
         )
     );
 }
@@ -80,12 +80,12 @@ if ($permissiontoread) {
 
 if ($permissiontoread) {
     $globalboxes[] = array('name' => strtoupper($langs->trans('MenuCodeZone')), 'color' =>'#96BBBB',
-        'url' => dol_buildpath('/sigrebadge/codezone_list.php', 1),
-        'url_add' => dol_buildpath('/sigrebadge/codezone_card.php?action=create', 1),
+        'url' => dol_buildpath('/accesscontrol/codezone_list.php', 1),
+        'url_add' => dol_buildpath('/accesscontrol/codezone_card.php?action=create', 1),
         'right' => $permissiontoread,
         'lines' => array(
-            array('title' => $langs->trans('MenuActiveCodeZone'), 'value' => getCodeZoneNumber(4), 'url' => dol_buildpath('/sigrebadge/codezone_list.php', 1).'?search_status=4'),
-			array('title' => $langs->trans('MenuNotActiveCodeZone'), 'value' => getCodeZoneNumber(8), 'url' => dol_buildpath('/sigrebadge/codezone_list.php', 1).'?search_status=8'),
+            array('title' => $langs->trans('MenuActiveCodeZone'), 'value' => getCodeZoneNumber(4), 'url' => dol_buildpath('/accesscontrol/codezone_list.php', 1).'?search_status=4'),
+			array('title' => $langs->trans('MenuNotActiveCodeZone'), 'value' => getCodeZoneNumber(8), 'url' => dol_buildpath('/accesscontrol/codezone_list.php', 1).'?search_status=8'),
         )
     );
 }
@@ -137,7 +137,7 @@ if (GETPOST('addbox'))	// Add box (when submit is done from a form when ajax dis
     $boxorder=GETPOST('boxorder', 'aZ09');
     $boxorder.=GETPOST('boxcombo', 'aZ09');
 
-    $result=SigreBadgeInfoBox::saveboxorder($db, $zone, $boxorder, $userid);
+    $result=AccessControlInfoBox::saveboxorder($db, $zone, $boxorder, $userid);
     if ($result > 0) setEventMessages($langs->trans("BoxAdded"), null);
 }
 
@@ -150,28 +150,28 @@ if (!isset($form) || !is_object($form)) {
 }
 
 // Translations
-$langs->loadLangs(array("admin", "sigrebadge@gsigrebadge"));
+$langs->loadLangs(array("admin", "accesscontrol@gaccesscontrol"));
 
 // Title
-$title = $langs->trans("SigreBadgeDashboard");
+$title = $langs->trans("AccessControlDashboard");
 if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
     $title=$langs->trans("HomeArea").' - '.getDolGlobalString('MAIN_APPLICATION_TITLE');
 }
 
 llxHeader('', $title);
 $button = '';
-$resultboxes = SigreBadgeGetBoxesArea($user, "0");    // Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
+$resultboxes = AccessControlGetBoxesArea($user, "0");    // Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
 $morehtmlright = $resultboxes['selectboxlist'];
 
-print load_fiche_titre($langs->trans("SigreBadgeDashboard"), $morehtmlright, 'sigrebadge_minimized@sigrebadge');
+print load_fiche_titre($langs->trans("AccessControlDashboard"), $morehtmlright, 'accesscontrol_minimized@accesscontrol');
 print '<div class="dashboardBtnContainer">'.$button.'</div>';
 
 /*
  * Demo text
  */
-if (getDolGlobalInt('SIGREBADGE_DEMO_ACTIVE') == 1 && getDolGlobalInt('SIGREBADGE_DEMO_HOME')) {
-    print '<div class="sigrebadge-demo-div">';
-    print getDolGlobalInt('SIGREBADGE_DEMO_HOME');
+if (getDolGlobalInt('ACCESSCONTROL_DEMO_ACTIVE') == 1 && getDolGlobalInt('ACCESSCONTROL_DEMO_HOME')) {
+    print '<div class="accesscontrol-demo-div">';
+    print getDolGlobalInt('ACCESSCONTROL_DEMO_HOME');
     print '</div>';
     print '<div class="clearboth"></div>';
 }
@@ -180,15 +180,15 @@ if (getDolGlobalInt('SIGREBADGE_DEMO_ACTIVE') == 1 && getDolGlobalInt('SIGREBADG
  * Global synthesis
  */
 
-print '<div class="fichecenter sigrebadge-grid">';
+print '<div class="fichecenter accesscontrol-grid">';
 
 foreach ($globalboxes as $globalbox) {
     $icon = isset($globalbox['icon']) ? $globalbox['icon'] : 'fa-arrow-circle-right';  
-    print '<div class="sigrebadge-card">';
-    print '<div class="sigrebadge-left-side" style="background-color: '.$globalbox['color'].';"><i class="fa '.$icon.' icon"></i></div>';
-    print '<div class="sigrebadge-right-side"><div class="inner"><b style="color: '.$globalbox['color'].';">'.$globalbox['name'].'</b>';
+    print '<div class="accesscontrol-card">';
+    print '<div class="accesscontrol-left-side" style="background-color: '.$globalbox['color'].';"><i class="fa '.$icon.' icon"></i></div>';
+    print '<div class="accesscontrol-right-side"><div class="inner"><b style="color: '.$globalbox['color'].';">'.$globalbox['name'].'</b>';
     if (!empty($globalbox['url_add']) && $globalbox['right'])
-        print '<a href="'.$globalbox['url_add'].'" class="sigrebadge-rounded-btn"><i class="fa fa-plus-circle fa-2x" style="color: '.$globalbox['color'].';"></i></a>';
+        print '<a href="'.$globalbox['url_add'].'" class="accesscontrol-rounded-btn"><i class="fa fa-plus-circle fa-2x" style="color: '.$globalbox['color'].';"></i></a>';
     foreach ($globalbox['lines'] as $line) {
         print '<div class="line-info">'.$line['title'].' : <a href="'.$line['url'].'"><span style="background-color: '.$globalbox['color'].'">' . $line['value'] . '</span></a></div>';
     }
@@ -247,11 +247,11 @@ $globalboxes=[];
 foreach ($globalboxes as $globalbox) {
 
     $icon = isset($globalbox['icon']) ? $globalbox['icon'] : 'fa-arrow-circle-right';
-    print '<div class="sigrebadge-card-list">';
-    print '<div class="sigrebadge-left-side" style="background-color: '.$globalbox['color'].';"><i class="fa '.$icon.' icon"></i></div>';
-    print '<div class="sigrebadge-right-side"><div class="inner"><b style="color: '.$globalbox['color'].';">'.$globalbox['name'].'</b>';
+    print '<div class="accesscontrol-card-list">';
+    print '<div class="accesscontrol-left-side" style="background-color: '.$globalbox['color'].';"><i class="fa '.$icon.' icon"></i></div>';
+    print '<div class="accesscontrol-right-side"><div class="inner"><b style="color: '.$globalbox['color'].';">'.$globalbox['name'].'</b>';
     if (!empty($globalbox['url_add']) && $globalbox['right'])
-        print '<a href="'.$globalbox['url_add'].'" class="sigrebadge-rounded-btn"><i class="fa fa-plus-circle fa-2x" style="color: '.$globalbox['color'].';"></i></a>';
+        print '<a href="'.$globalbox['url_add'].'" class="accesscontrol-rounded-btn"><i class="fa fa-plus-circle fa-2x" style="color: '.$globalbox['color'].';"></i></a>';
     foreach ($globalbox['lines'] as $line) {
         print '<div class="line-info">'.$line['title'].' : <a href="'.$line['url'].'"><span style="background-color: '.$globalbox['color'].'">' . $line['value'] . '</span></a></div>';
     }
@@ -271,7 +271,7 @@ $db->close();
  * @param   String  $areacode       Code of area for pages ('0'=value for Home page)
  * @return  array
  */
-function SigreBadgeGetBoxesArea($user, $areacode)
+function AccessControlGetBoxesArea($user, $areacode)
 {
     global $conf,$langs,$db;
 
@@ -281,7 +281,7 @@ function SigreBadgeGetBoxesArea($user, $areacode)
     // $boxidactivatedforuser will be array of boxes choosed by user
 
     $selectboxlist='';
-    $boxactivated=SigreBadgeInfoBox::listBoxes($db, 'activated', $areacode, (empty($user->conf->$confuserzone)?null:$user), array(), 0);  // Search boxes of common+user (or common only if user has no specific setup)
+    $boxactivated=AccessControlInfoBox::listBoxes($db, 'activated', $areacode, (empty($user->conf->$confuserzone)?null:$user), array(), 0);  // Search boxes of common+user (or common only if user has no specific setup)
     $boxidactivatedforuser=array();
     foreach ($boxactivated as $box)
     {
@@ -335,7 +335,7 @@ function SigreBadgeGetBoxesArea($user, $areacode)
     // Javascript code for dynamic actions
     if (! empty($conf->use_javascript_ajax))
     {
-        $box_file = dol_buildpath('/sigrebadge/ajax/box.php', 1);
+        $box_file = dol_buildpath('/accesscontrol/ajax/box.php', 1);
 
         $selectboxlist.='<script type="text/javascript" language="javascript">
 
@@ -415,14 +415,14 @@ function SigreBadgeGetBoxesArea($user, $areacode)
         $langs->load("boxes");
         $langs->load("projects");
 
-        $emptybox=new SigreBadgeModeleBoxes($db);
+        $emptybox=new AccessControlModeleBoxes($db);
 
         $boxlista.="\n<!-- Box left container -->\n";
 
         // Define $box_max_lines
         $box_max_lines=5;
-        if (getDolGlobalInt('SIGREBADGE_BOXES_MAXLINES')) {
-            $box_max_lines=getDolGlobalInt('SIGREBADGE_BOXES_MAXLINES');
+        if (getDolGlobalInt('ACCESSCONTROL_BOXES_MAXLINES')) {
+            $box_max_lines=getDolGlobalInt('ACCESSCONTROL_BOXES_MAXLINES');
         }     
 
         $ii=0;
