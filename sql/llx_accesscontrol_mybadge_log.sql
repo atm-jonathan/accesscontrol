@@ -14,14 +14,14 @@
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
 
--- BEGIN MODULEBUILDER INDEXES
-ALTER TABLE llx_sigrebadge_mybadge ADD INDEX idx_sigrebadge_mybadge_rowid (rowid);
-ALTER TABLE llx_sigrebadge_mybadge ADD INDEX idx_sigrebadge_mybadge_ref (ref);
-ALTER TABLE llx_sigrebadge_mybadge ADD INDEX idx_sigrebadge_mybadge_fk_soc (fk_soc);
-ALTER TABLE llx_sigrebadge_mybadge ADD INDEX idx_sigrebadge_mybadge_status (status);
--- END MODULEBUILDER INDEXES
-
---ALTER TABLE llx_sigrebadge_mybadge ADD UNIQUE INDEX uk_sigrebadge_mybadge_fieldxy(fieldx, fieldy);
-
---ALTER TABLE llx_sigrebadge_mybadge ADD CONSTRAINT llx_sigrebadge_mybadge_fk_field FOREIGN KEY (fk_field) REFERENCES llx_sigrebadge_myotherobject(rowid);
-
+CREATE TABLE llx_accesscontrol_mybadge_log(
+	-- BEGIN MODULEBUILDER FIELDS
+	rowid integer AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+	fk_mybadge integer NOT NULL, 
+	fk_user integer NOT NULL, 
+	fk_object varchar(32), 
+	fk_objectid integer, 
+	tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+	comment varchar(128)
+	-- END MODULEBUILDER FIELDS
+) ENGINE=innodb;

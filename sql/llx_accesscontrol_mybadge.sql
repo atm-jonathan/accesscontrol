@@ -14,7 +14,7 @@
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
 
-CREATE TABLE llx_sigrebadge_mybadge(
+CREATE TABLE llx_accesscontrol_mybadge(
 	-- BEGIN MODULEBUILDER FIELDS
 	rowid integer AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	entity INT(11) NOT NULL DEFAULT 1, 

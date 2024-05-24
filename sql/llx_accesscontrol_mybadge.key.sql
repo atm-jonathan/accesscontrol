@@ -15,9 +15,13 @@
 
 
 -- BEGIN MODULEBUILDER INDEXES
+ALTER TABLE llx_accesscontrol_mybadge ADD INDEX idx_accesscontrol_mybadge_rowid (rowid);
+ALTER TABLE llx_accesscontrol_mybadge ADD INDEX idx_accesscontrol_mybadge_ref (ref);
+ALTER TABLE llx_accesscontrol_mybadge ADD INDEX idx_accesscontrol_mybadge_fk_soc (fk_soc);
+ALTER TABLE llx_accesscontrol_mybadge ADD INDEX idx_accesscontrol_mybadge_status (status);
 -- END MODULEBUILDER INDEXES
 
---ALTER TABLE llx_sigrebadge_mybadge_log ADD UNIQUE INDEX uk_sigrebadge_mybadge_log_fieldxy(fieldx, fieldy);
+--ALTER TABLE llx_accesscontrol_mybadge ADD UNIQUE INDEX uk_accesscontrol_mybadge_fieldxy(fieldx, fieldy);
 
---ALTER TABLE llx_sigrebadge_mybadge_log ADD CONSTRAINT llx_sigrebadge_mybadge_log_fk_field FOREIGN KEY (fk_field) REFERENCES llx_sigrebadge_myotherobject(rowid);
+--ALTER TABLE llx_accesscontrol_mybadge ADD CONSTRAINT llx_accesscontrol_mybadge_fk_field FOREIGN KEY (fk_field) REFERENCES llx_accesscontrol_myotherobject(rowid);
 

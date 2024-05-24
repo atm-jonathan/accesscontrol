@@ -15,5 +15,5 @@
 
 
 -- BEGIN MODULEBUILDER INDEXES
-ALTER TABLE llx_sigrebadge_mybadge_log_extrafields ADD INDEX idx_mybadge_log_fk_object(fk_object);
+ALTER TABLE llx_accesscontrol_mybadge_extrafields ADD INDEX idx_mybadge_fk_object(fk_object);
 -- END MODULEBUILDER INDEXES

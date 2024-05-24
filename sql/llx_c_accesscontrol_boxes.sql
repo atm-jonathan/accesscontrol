@@ -16,10 +16,13 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 -- ========================================================================
-CREATE TABLE llx_c_sigrebadge_boxes_def(
-     rowid INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
-     file VARCHAR(200) NOT NULL,
-     entity INTEGER NOT NULL DEFAULT 1,
-     tms timestamp,
-     note VARCHAR(130)
+CREATE TABLE llx_c_accesscontrol_boxes(
+    rowid INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    entity INTEGER NOT NULL DEFAULT 1,
+    box_id INTEGER NOT NULL,
+    position SMALLINT NOT NULL,
+    box_order VARCHAR(3) NOT NULL,
+    fk_user INTEGER NOT NULL,
+    maxline INTEGER,
+    params INTEGER
 )ENGINE=InnoDB;
