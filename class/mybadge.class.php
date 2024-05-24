@@ -19,7 +19,7 @@
 
 /**
  * \file        class/mybadge.class.php
- * \ingroup     sigrebadge
+ * \ingroup     accesscontrol
  * \brief       This file is a CRUD class file for MyBadge (Create/Read/Update/Delete)
  */
 
@@ -36,7 +36,7 @@ class MyBadge extends CommonObject
 	/**
 	 * @var string ID of module.
 	 */
-	public $module = 'sigrebadge';
+	public $module = 'accesscontrol';
 
 	/**
 	 * @var string ID to identify managed object.
@@ -46,7 +46,7 @@ class MyBadge extends CommonObject
 	/**
 	 * @var string Name of table without prefix where object is stored. This is also the key used for extrafields management.
 	 */
-	public $table_element = 'sigrebadge_mybadge';
+	public $table_element = 'accesscontrol_mybadge';
 
 	/**
 	 * @var int  	Does this object support multicompany module ?
@@ -60,7 +60,7 @@ class MyBadge extends CommonObject
 	public $isextrafieldmanaged = 1;
 
 	/**
-	 * @var string String with name of icon for mybadge. Must be a 'fa-xxx' fontawesome code (or 'fa-xxx_fa_color_size') or 'mybadge@sigrebadge' if picto is file 'img/object_mybadge.png'.
+	 * @var string String with name of icon for mybadge. Must be a 'fa-xxx' fontawesome code (or 'fa-xxx_fa_color_size') or 'mybadge@accesscontrol' if picto is file 'img/object_mybadge.png'.
 	 */
 	public $picto = 'fa-file';
 
@@ -246,7 +246,7 @@ class MyBadge extends CommonObject
 	// /**
 	//  * @var string    Name of subtable line
 	//  */
-	// public $table_element_line = 'sigrebadge_mybadgeline';
+	// public $table_element_line = 'accesscontrol_mybadgeline';
 
 	// /**
 	//  * @var string    Field with ID of parent key if this object has a parent
@@ -268,7 +268,7 @@ class MyBadge extends CommonObject
 	//  *               If name matches '@ClassNAme:FilePathClass;ParentFkFieldName' it will
 	//  *               call method deleteByParentField(parentId, ParentFkFieldName) to fetch and delete child object
 	//  */
-	// protected $childtablesoncascade = array('sigrebadge_mybadgedet');
+	// protected $childtablesoncascade = array('accesscontrol_mybadgedet');
 
 	// /**
 	//  * @var MyBadgeLine[]     Array of subtable lines
@@ -297,7 +297,7 @@ class MyBadge extends CommonObject
 		}
 
 		// Example to show how to set values of fields definition dynamically
-		/*if ($user->hasRight('sigrebadge', 'mybadge', 'read')) {
+		/*if ($user->hasRight('accesscontrol', 'mybadge', 'read')) {
 			$this->fields['myfield']['visible'] = 1;
 			$this->fields['myfield']['noteditable'] = 0;
 		}*/
@@ -642,8 +642,8 @@ class MyBadge extends CommonObject
 			return 0;
 		}
 
-		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge', 'mybadge', 'write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge', 'mybadge_advance', 'validate')))
+		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol', 'mybadge', 'write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol', 'mybadge_advance', 'validate')))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -720,16 +720,16 @@ class MyBadge extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				//var_dump($conf->sigrebadge->dir_output);
-				$dirsource = $conf->sigrebadge->dir_output.'/mybadge/'.$oldref;
-				$dirdest = $conf->sigrebadge->dir_output.'/mybadge/'.$newref;
+				//var_dump($conf->accesscontrol->dir_output);
+				$dirsource = $conf->accesscontrol->dir_output.'/mybadge/'.$oldref;
+				$dirdest = $conf->accesscontrol->dir_output.'/mybadge/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->sigrebadge->dir_output.'/mybadge/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($conf->accesscontrol->dir_output.'/mybadge/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -772,14 +772,14 @@ class MyBadge extends CommonObject
 			return 0;
 		}
 
-		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','sigrebadge_advance','validate'))))
+		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','accesscontrol_advance','validate'))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'SIGREBADGE_MYBADGE_UNVALIDATE');
+		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'ACCESSCONTROL_MYBADGE_UNVALIDATE');
 	}
 
 	/**
@@ -796,14 +796,14 @@ class MyBadge extends CommonObject
 			return 0;
 		}
 
-		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','sigrebadge_advance','validate'))))
+		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','accesscontrol_advance','validate'))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'SIGREBADGE_MYBADGE_CANCEL');
+		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'ACCESSCONTROL_MYBADGE_CANCEL');
 	}
 
 	/**
@@ -820,14 +820,14 @@ class MyBadge extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','sigrebadge_advance','validate'))))
+		/*if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','accesscontrol_advance','validate'))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'SIGREBADGE_MYBADGE_REOPEN');
+		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'ACCESSCONTROL_MYBADGE_REOPEN');
 	}
 
 	/**
@@ -894,7 +894,7 @@ class MyBadge extends CommonObject
 			$label = implode($this->getTooltipContentArray($params));
 		}
 
-		$url = dol_buildpath('/sigrebadge/mybadge_card.php', 1).'?id='.$this->id;
+		$url = dol_buildpath('/accesscontrol/mybadge_card.php', 1).'?id='.$this->id;
 
 		if ($option !== 'nolink') {
 			// Add param to save lastsearch_values or not
@@ -1059,7 +1059,7 @@ class MyBadge extends CommonObject
 	{
 		// phpcs:enable
 		global $langs;
-		$langs->load("sigrebadge@sigrebadge");
+		$langs->load("accesscontrol@accesscontrol");
 
 		$this->labelStatus = array(			
 			self::STATUS_DRAFT => $langs->transnoentitiesnoconv('Draft'),
@@ -1182,22 +1182,22 @@ class MyBadge extends CommonObject
 	public function getNextNumRef()
 	{
 		global $langs, $conf;
-		$langs->load("sigrebadge@sigrebadge");
+		$langs->load("accesscontrol@accesscontrol");
 
-		if (!getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_NUMBER')) {
-			getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_NUMBER', 'mod_mybadge_standard');
+		if (!getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_NUMBER')) {
+			getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_NUMBER', 'mod_mybadge_standard');
 		}
 		
-		if (getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_NUMBER')) {
+		if (getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_NUMBER')) {
 			$mybool = false;
 
-			$file = getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_NUMBER').".php";
-			$classname = getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_NUMBER');
+			$file = getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_NUMBER').".php";
+			$classname = getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_NUMBER');
 
 			// Include file with class
 			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
-				$dir = dol_buildpath($reldir."sigrebadge/core/modules/sigrebadge/");
+				$dir = dol_buildpath($reldir."accesscontrol/core/modules/accesscontrol/");
 
 				// Load file with numbering class (if found)
 				$mybool |= @include_once $dir.$file;
@@ -1250,19 +1250,19 @@ class MyBadge extends CommonObject
 		$result = 0;
 		$includedocgeneration = 1;
 
-		$langs->load("sigrebadge@sigrebadge");
+		$langs->load("accesscontrol@accesscontrol");
 
 		if (!dol_strlen($modele)) {
 			$modele = 'standard_mybadge';
 
 			if (!empty($this->model_pdf)) {
 				$modele = $this->model_pdf;
-			} elseif (getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_PDF')) {
-				$modele = getDolGlobalString('SIGREBADGE_MYBADGE_ADDON_PDF');
+			} elseif (getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_PDF')) {
+				$modele = getDolGlobalString('ACCESSCONTROL_MYBADGE_ADDON_PDF');
 			}
 		}
 
-		$modelpath = "sigrebadge/core/modules/sigrebadge/doc/";
+		$modelpath = "accesscontrol/core/modules/accesscontrol/doc/";
 
 		if ($includedocgeneration && !empty($modele)) {
 			$result = $this->commonGenerateDocument($modelpath, $modele, $outputlangs, $hidedetails, $hidedesc, $hideref, $moreparams);
