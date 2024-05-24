@@ -18,7 +18,7 @@
 
 /**
  *  \file       mybadge_log_document.php
- *  \ingroup    sigrebadge
+ *  \ingroup    accesscontrol
  *  \brief      Tab for documents linked to Mybadge_log
  */
 
@@ -79,11 +79,11 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-dol_include_once('/sigrebadge/class/mybadge_log.class.php');
-dol_include_once('/sigrebadge/lib/sigrebadge_mybadge_log.lib.php');
+dol_include_once('/accesscontrol/class/mybadge_log.class.php');
+dol_include_once('/accesscontrol/lib/accesscontrol_mybadge_log.lib.php');
 
 // Load translation files required by the page
-$langs->loadLangs(array("sigrebadge@sigrebadge", "companies", "other", "mails"));
+$langs->loadLangs(array("accesscontrol@accesscontrol", "companies", "other", "mails"));
 
 // Get parameters
 $action  = GETPOST('action', 'aZ09');
@@ -112,7 +112,7 @@ if (!$sortfield) {
 // Initialize technical objects
 $object = new Mybadge_log($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->sigrebadge->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $conf->accesscontrol->dir_output.'/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array($object->element.'document', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -122,7 +122,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
 
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->sigrebadge->multidir_output[$object->entity ? $object->entity : $conf->entity]."/mybadge_log/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $conf->accesscontrol->multidir_output[$object->entity ? $object->entity : $conf->entity]."/mybadge_log/".get_exdir(0, 0, 0, 1, $object);
 }
 
 // Permissions
@@ -130,8 +130,8 @@ if ($id > 0 || !empty($ref)) {
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
 $enablepermissioncheck = 0;
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('sigrebadge', 'mybadge_log', 'read');
-	$permissiontoadd  = $user->hasRight('sigrebadge', 'mybadge_log', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+	$permissiontoread = $user->hasRight('accesscontrol', 'mybadge_log', 'read');
+	$permissiontoadd  = $user->hasRight('accesscontrol', 'mybadge_log', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd  = 1;
@@ -142,7 +142,7 @@ if ($enablepermissioncheck) {
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->module, $object->id, $object->table_element, $object->element, 'fk_soc', 'rowid', $isdraft);
-if (!isModEnabled("sigrebadge")) {
+if (!isModEnabled("accesscontrol")) {
 	accessforbidden();
 }
 if (!$permissiontoread) {
@@ -173,7 +173,7 @@ $title = $langs->trans("Mybadge_log")." - ".$langs->trans("Files");
 //$title = $object->ref." - ".$langs->trans("Files");
 $help_url = '';
 //Example $help_url='EN:Module_Third_Parties|FR:Module_Tiers|ES:Empresas';
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-sigrebadge page-card_document');
+llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-accesscontrol page-card_document');
 
 // Show tabs
 $head = mybadge_logPrepareHead($object);
@@ -190,7 +190,7 @@ foreach ($filearray as $key => $file) {
 
 // Object card
 // ------------------------------------------------------------
-$linkback = '<a href="'.dol_buildpath('/sigrebadge/mybadge_log_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+$linkback = '<a href="'.dol_buildpath('/accesscontrol/mybadge_log_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 $morehtmlref = '<div class="refidno">';
 /*
@@ -250,7 +250,7 @@ print '</div>';
 
 print dol_get_fiche_end();
 
-$modulepart = 'sigrebadge';
+$modulepart = 'accesscontrol';
 $param = '&id='.$object->id;
 //$relativepathwithnofile='mybadge_log/' . dol_sanitizeFileName($object->id).'/';
 $relativepathwithnofile = 'mybadge_log/'.dol_sanitizeFileName($object->ref).'/';

@@ -19,9 +19,9 @@
  */
 
 /**
- *	\file       sigrebadge/sigrebadgeindex.php
- *	\ingroup    sigrebadge
- *	\brief      Home page of sigrebadge top menu
+ *	\file       accesscontrol/accesscontrolindex.php
+ *	\ingroup    accesscontrol
+ *	\brief      Home page of accesscontrol top menu
  */
 
 // Load Dolibarr environment
@@ -59,7 +59,7 @@ if (!$res) {
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
 // Load translation files required by the page
-$langs->loadLangs(array("sigrebadge@sigrebadge"));
+$langs->loadLangs(array("accesscontrol@accesscontrol"));
 
 $action = GETPOST('action', 'aZ09');
 
@@ -76,13 +76,13 @@ if (isset($user->socid) && $user->socid > 0) {
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
-//if (!isModEnabled('sigrebadge')) {
+//if (!isModEnabled('accesscontrol')) {
 //	accessforbidden('Module not enabled');
 //}
-//if (! $user->hasRight('sigrebadge', 'mybadge', 'read')) {
+//if (! $user->hasRight('accesscontrol', 'mybadge', 'read')) {
 //	accessforbidden();
 //}
-//restrictedArea($user, 'sigrebadge', 0, 'sigrebadge_mybadge', 'mybadge', '', 'rowid');
+//restrictedArea($user, 'accesscontrol', 0, 'accesscontrol_mybadge', 'mybadge', '', 'rowid');
 //if (empty($user->admin)) {
 //	accessforbidden('Must be admin');
 //}
@@ -102,16 +102,16 @@ if (isset($user->socid) && $user->socid > 0) {
 $form = new Form($db);
 $formfile = new FormFile($db);
 
-llxHeader("", $langs->trans("SigreBadgeArea"), '', '', 0, 0, '', '', '', 'mod-sigrebadge page-index');
+llxHeader("", $langs->trans("AccessControlArea"), '', '', 0, 0, '', '', '', 'mod-accesscontrol page-index');
 
-print load_fiche_titre($langs->trans("SigreBadgeArea"), '', 'sigrebadge.png@sigrebadge');
+print load_fiche_titre($langs->trans("AccessControlArea"), '', 'accesscontrol.png@accesscontrol');
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 
 
 /* BEGIN MODULEBUILDER DRAFT MYBADGE
 // Draft MyBadge
-if (isModEnabled('sigrebadge') && $user->hasRight('sigrebadge', 'read')) {
+if (isModEnabled('accesscontrol') && $user->hasRight('accesscontrol', 'read')) {
 	$langs->load("orders");
 
 	$sql = "SELECT c.rowid, c.ref, c.ref_client, c.total_ht, c.tva as total_tva, c.total_ttc, s.rowid as socid, s.nom as name, s.client, s.canvas";
@@ -189,9 +189,9 @@ $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT');
 
 /* BEGIN MODULEBUILDER LASTMODIFIED MYBADGE
 // Last modified mybadge
-if (isModEnabled('sigrebadge') && $user->hasRight('sigrebadge', 'read')) {
+if (isModEnabled('accesscontrol') && $user->hasRight('accesscontrol', 'read')) {
 	$sql = "SELECT s.rowid, s.ref, s.label, s.date_creation, s.tms";
-	$sql.= " FROM ".MAIN_DB_PREFIX."sigrebadge_mybadge as s";
+	$sql.= " FROM ".MAIN_DB_PREFIX."accesscontrol_mybadge as s";
 	$sql.= " WHERE s.entity IN (".getEntity($mybadgestatic->element).")";
 	//if ($socid)	$sql.= " AND s.rowid = $socid";
 	$sql .= " ORDER BY s.tms DESC";
