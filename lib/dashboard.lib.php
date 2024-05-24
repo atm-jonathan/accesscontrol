@@ -47,7 +47,7 @@ function getBadgeNumber($status)
     global $db;
 
     $res = 0;
-    $sql = 'SELECT COUNT(rowid) AS total FROM '.MAIN_DB_PREFIX.'sigrebadge_mybadge WHERE status = '.$status;
+    $sql = 'SELECT COUNT(rowid) AS total FROM '.MAIN_DB_PREFIX.'accesscontrol_mybadge WHERE status = '.$status;
     $resql = $db->query($sql);
     if ($resql) {
         $res = ($db->fetch_object($resql))->total;
@@ -61,7 +61,7 @@ function getCodeZoneNumber($status)
     global $db;
 
     $res = 0;
-    $sql = 'SELECT COUNT(rowid) AS total FROM '.MAIN_DB_PREFIX.'sigrebadge_codezone WHERE status = '.$status;
+    $sql = 'SELECT COUNT(rowid) AS total FROM '.MAIN_DB_PREFIX.'accesscontrol_codezone WHERE status = '.$status;
     $resql = $db->query($sql);
     if ($resql) {
         $res = ($db->fetch_object($resql))->total;

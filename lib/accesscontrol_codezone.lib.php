@@ -16,8 +16,8 @@
  */
 
 /**
- * \file    htdocs/modulebuilder/template/lib/sigrebadge_codezone.lib.php
- * \ingroup sigrebadge
+ * \file    htdocs/modulebuilder/template/lib/accesscontrol_codezone.lib.php
+ * \ingroup accesscontrol
  * \brief   Library files with common functions for CodeZone
  */
 
@@ -31,7 +31,7 @@ function codezonePrepareHead($object)
 {
 	global $db, $langs, $conf;
 
-	$langs->load("sigrebadge@sigrebadge");
+	$langs->load("accesscontrol@accesscontrol");
 
 	$showtabofpagecontact = 1;
 	$showtabofpagenote = 1;
@@ -41,13 +41,13 @@ function codezonePrepareHead($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/sigrebadge/codezone_card.php", 1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath("/accesscontrol/codezone_card.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("CodeZone");
 	$head[$h][2] = 'card';
 	$h++;
 
 	/*if ($showtabofpagecontact) {
-		$head[$h][0] = dol_buildpath("/sigrebadge/codezone_contact.php", 1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath("/accesscontrol/codezone_contact.php", 1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Contacts");
 		$head[$h][2] = 'contact';
 		$h++;
@@ -62,7 +62,7 @@ function codezonePrepareHead($object)
 			if (!empty($object->note_public)) {
 				$nbNote++;
 			}
-			$head[$h][0] = dol_buildpath('/sigrebadge/codezone_note.php', 1).'?id='.$object->id;
+			$head[$h][0] = dol_buildpath('/accesscontrol/codezone_note.php', 1).'?id='.$object->id;
 			$head[$h][1] = $langs->trans('Notes');
 			if ($nbNote > 0) {
 				$head[$h][1] .= (!getDolGlobalInt('MAIN_OPTIMIZEFORTEXTBROWSER') ? '<span class="badge marginleftonlyshort">'.$nbNote.'</span>' : '');
@@ -75,10 +75,10 @@ function codezonePrepareHead($object)
 	if ($showtabofpagedocument) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-		$upload_dir = $conf->sigrebadge->dir_output."/codezone/".dol_sanitizeFileName($object->ref);
+		$upload_dir = $conf->accesscontrol->dir_output."/codezone/".dol_sanitizeFileName($object->ref);
 		$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 		$nbLinks = Link::count($db, $object->element, $object->id);
-		$head[$h][0] = dol_buildpath("/sigrebadge/codezone_document.php", 1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath("/accesscontrol/codezone_document.php", 1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans('Documents');
 		if (($nbFiles + $nbLinks) > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
@@ -88,7 +88,7 @@ function codezonePrepareHead($object)
 	}
 
 	/*if ($showtabofpageagenda) {
-		$head[$h][0] = dol_buildpath("/sigrebadge/codezone_agenda.php", 1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath("/accesscontrol/codezone_agenda.php", 1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Events");
 		$head[$h][2] = 'agenda';
 		$h++;
@@ -97,14 +97,14 @@ function codezonePrepareHead($object)
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(
-	//	'entity:+tabname:Title:@sigrebadge:/sigrebadge/mypage.php?id=__ID__'
+	//	'entity:+tabname:Title:@accesscontrol:/accesscontrol/mypage.php?id=__ID__'
 	//); // to add new tab
 	//$this->tabs = array(
-	//	'entity:-tabname:Title:@sigrebadge:/sigrebadge/mypage.php?id=__ID__'
+	//	'entity:-tabname:Title:@accesscontrol:/accesscontrol/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'codezone@sigrebadge');
+	complete_head_from_modules($conf, $langs, $object, $head, $h, 'codezone@accesscontrol');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'codezone@sigrebadge', 'remove');
+	complete_head_from_modules($conf, $langs, $object, $head, $h, 'codezone@accesscontrol', 'remove');
 
 	return $head;
 }
