@@ -16,9 +16,9 @@
  */
 
 /**
- * \file    sigrebadge/lib/sigrebadge.lib.php
- * \ingroup sigrebadge
- * \brief   Library files with common functions for SigreBadge
+ * \file    accesscontrol/lib/accesscontrol.lib.php
+ * \ingroup accesscontrol
+ * \brief   Library files with common functions for AccessControl
  */
 
 /**
@@ -26,7 +26,7 @@
  *
  * @return array
  */
-function sigrebadgeAdminPrepareHead()
+function accesscontrolAdminPrepareHead()
 {
 	global $langs, $conf;
 
@@ -34,22 +34,22 @@ function sigrebadgeAdminPrepareHead()
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('mybadge');
 
-	$langs->load("sigrebadge@sigrebadge");
+	$langs->load("accesscontrol@accesscontrol");
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/sigrebadge/admin/setup.php", 1);
+	$head[$h][0] = dol_buildpath("/accesscontrol/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/sigrebadge/admin/setupcodezone.php", 1);
+	$head[$h][0] = dol_buildpath("/accesscontrol/admin/setupcodezone.php", 1);
 	$head[$h][1] = $langs->trans("CodeZone");
 	$head[$h][2] = 'codezone';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/sigrebadge/admin/mybadge_extrafields.php", 1);
+	$head[$h][0] = dol_buildpath("/accesscontrol/admin/mybadge_extrafields.php", 1);
 	$head[$h][1] = $langs->trans("ExtraFields");
 	$nbExtrafields = is_countable($extrafields->attributes['mybadge']['count']) ? count($extrafields->attributes['mybadge']['count']) : 0;
 	if ($nbExtrafields > 0) {
@@ -58,7 +58,7 @@ function sigrebadgeAdminPrepareHead()
 	$head[$h][2] = 'mybadge_extrafields';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/sigrebadge/admin/about.php", 1);
+	$head[$h][0] = dol_buildpath("/accesscontrol/admin/about.php", 1);
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'about';
 	$h++;
@@ -66,14 +66,14 @@ function sigrebadgeAdminPrepareHead()
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(
-	//	'entity:+tabname:Title:@sigrebadge:/sigrebadge/mypage.php?id=__ID__'
+	//	'entity:+tabname:Title:@accesscontrol:/accesscontrol/mypage.php?id=__ID__'
 	//); // to add new tab
 	//$this->tabs = array(
-	//	'entity:-tabname:Title:@sigrebadge:/sigrebadge/mypage.php?id=__ID__'
+	//	'entity:-tabname:Title:@accesscontrol:/accesscontrol/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'sigrebadge@sigrebadge');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'accesscontrol@accesscontrol');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'sigrebadge@sigrebadge', 'remove');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'accesscontrol@accesscontrol', 'remove');
 
 	return $head;
 }
