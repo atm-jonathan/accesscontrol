@@ -46,7 +46,7 @@ if (! $res && file_exists("../../../main.inc.php")) { $res=@include "../../../ma
 if (! $res) { die("Include of main fails");
 }
 
-dol_include_once('sigrebadge/class/sigrebadge_infobox.class.php');
+dol_include_once('accesscontrol/class/accesscontrol_infobox.class.php');
 
 
 $boxid=GETPOST('boxid', 'int');
@@ -81,7 +81,7 @@ if ($boxorder && $zone != '' &&  $userid > 0)
 	// boxorder value is the target order: "A:idboxA1,idboxA2,A-B:idboxB1,idboxB2,B"
 	dol_syslog("AjaxBox boxorder=".$boxorder." zone=".$zone." userid=".$userid, LOG_DEBUG);
 
-	$result=SigreBadgeInfoBox::InfoBox::saveboxorder($db, $zone, $boxorder, $userid);
+	$result=AccessControlInfoBox::InfoBox::saveboxorder($db, $zone, $boxorder, $userid);
 	if ($result > 0)
 	{
 		$langs->load("boxes");
