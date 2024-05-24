@@ -17,35 +17,35 @@
 # Generic
 #
 
-# Module label 'ModuleSigreBadgeName'
-ModuleSigreBadgeName = SigreBadge
-# Module description 'ModuleSigreBadgeDesc'
-ModuleSigreBadgeDesc = SigreBadge description
+# Module label 'ModuleAccessControlName'
+ModuleAccessControlName = AccessControl
+# Module description 'ModuleAccessControlDesc'
+ModuleAccessControlDesc = AccessControl description
 
 #
 # Admin page
 #
-SigreBadgeSetup = SigreBadge setup
+AccessControlSetup = AccessControl setup
 Settings = Settings
-SigreBadgeSetupPage = SigreBadge setup page
-SIGREBADGE_PREFIX = Choose un prefix
+AccessControlSetupPage = AccessControl setup page
+ACCESSCONTROL_PREFIX = Choose un prefix
 CodesZones = Zones Codes
-SIGREBADGE_MYPARAM1Tooltip = My param 1 tooltip
-SIGREBADGE_MYPARAM2=My param 2
-SIGREBADGE_MYPARAM2Tooltip=My param 2 tooltip
+ACCESSCONTROL_MYPARAM1Tooltip = My param 1 tooltip
+ACCESSCONTROL_MYPARAM2=My param 2
+ACCESSCONTROL_MYPARAM2Tooltip=My param 2 tooltip
 
 
 #
 # About page
 #
 About = About
-SigreBadgeAbout = About SigreBadge
-SigreBadgeAboutPage = SigreBadge about page
+AccessControlAbout = About AccessControl
+AccessControlAboutPage = AccessControl about page
 
 #
 # Sample page
 #
-SigreBadgeArea = Home SigreBadge
+AccessControlArea = Home AccessControl
 MyPageName = My page name
 NewMyBadge = New badge
 

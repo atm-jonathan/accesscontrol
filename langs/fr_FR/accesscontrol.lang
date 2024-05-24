@@ -17,44 +17,44 @@
 # Generic
 #
 
-# Module label 'ModuleSigreBadgeName'
-ModuleSigreBadgeName = SigreBadge
-# Module description 'ModuleSigreBadgeDesc'
-ModuleSigreBadgeDesc = SigreBadge description
+# Module label 'ModuleAccessControlName'
+ModuleAccessControlName = AccessControl
+# Module description 'ModuleAccessControlDesc'
+ModuleAccessControlDesc = AccessControl description
 
 #
 # Admin page
 #
-SigreBadgeSetup = Configuration de SigreBadge 
+AccessControlSetup = Configuration de AccessControl 
 Settings = Settings
-SigreBadgeSetupPage = Page de configuration pour les badges
+AccessControlSetupPage = Page de configuration pour les badges
 CodeZoneSetupPage = Page de configuration pour les codes zones
-SIGREBADGE_PREFIX = Choisissez un préfix
+ACCESSCONTROL_PREFIX = Choisissez un préfix
 CODEZONE_PREFIX = Choisissez un préfix
 CodesZones = Codes zones
-SIGREBADGE_MYPARAM1Tooltip = My param 1 tooltip
-SIGREBADGE_MYPARAM2=My param 2
-SIGREBADGE_MYPARAM2Tooltip=My param 2 tooltip
+ACCESSCONTROL_MYPARAM1Tooltip = My param 1 tooltip
+ACCESSCONTROL_MYPARAM2=My param 2
+ACCESSCONTROL_MYPARAM2Tooltip=My param 2 tooltip
 
 
 #
 # About page
 #
 About = A propos
-SigreBadgeAbout = A propos de SigreBadge
-SigreBadgeAboutPage = SigreBadge about page
+AccessControlAbout = A propos de AccessControl
+AccessControlAboutPage = AccessControl about page
 
 #
 # Sample page
 #
-SigreBadgeArea = Accueil SigreBadge
+AccessControlArea = Accueil AccessControl
 MyPageName = My page name
 NonFonctional = Non fonctionnel
 MyBadge = Badge
 ListMyBadge = Liste des badges
 NewMyBadge = Nouveau badge
-SigreBadgeDashboard = Espace gestion de badges
-MenuSigrebadge = BADGES
+AccessControlDashboard = Espace gestion de badges
+MenuAccessControl = BADGES
 MenuImmoActiveBadge  = Badges actifs
 MenuImmoNotActiveBadge  = Badges désactivés
 MyBadges = Les badges

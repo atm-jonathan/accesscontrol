@@ -16,9 +16,9 @@
  */
 
 /**
- * \file    sigrebadge/css/sigrebadge.css.php
- * \ingroup sigrebadge
- * \brief   CSS file for module SigreBadge.
+ * \file    accesscontrol/css/accesscontrol.css.php
+ * \ingroup accesscontrol
+ * \brief   CSS file for module AccessControl.
  */
 
 //if (!defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled because need to load personalized language
@@ -97,10 +97,10 @@ if (empty($dolibarr_nocache)) {
 
 ?>
 
-div.mainmenu.sigrebadge::before {
+div.mainmenu.accesscontrol::before {
 	content: "\f249";
 }
-div.mainmenu.sigrebadge {
+div.mainmenu.accesscontrol {
 	background-image: none;
 }
 
@@ -108,7 +108,7 @@ div.mainmenu.sigrebadge {
 	/* ... */
 }
 /* Card for dashboard */
-.sigrebadge-grid {
+.accesscontrol-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	grid-gap: 30px;
@@ -116,7 +116,7 @@ div.mainmenu.sigrebadge {
 	justify-items: center;
 }
 
-.sigrebadge-card {
+.accesscontrol-card {
 	width: 280px;
 	min-height: 110px;
 	background-color: #fff;
@@ -129,7 +129,7 @@ div.mainmenu.sigrebadge {
 	margin-bottom: 1%;
 }
 
-.sigrebadge-left-side {
+.accesscontrol-left-side {
 	background-color: #FFBF69;
 	border-top-left-radius: .25rem;
 	border-bottom-left-radius: .25rem;
@@ -140,30 +140,30 @@ div.mainmenu.sigrebadge {
 	text-align: center;
 }
 
-.sigrebadge-left-side .icon {
+.accesscontrol-left-side .icon {
 	font-size: 50px;
 }
 
-.sigrebadge-right-side {
+.accesscontrol-right-side {
 	width: 75%;
 }
 
-.sigrebadge-right-side .inner {
+.accesscontrol-right-side .inner {
 	padding: 1% 3% 1% 3%;
 	color: #0c0c0c;
 }
 
-.sigrebadge-right-side .line-info {
+.accesscontrol-right-side .line-info {
 	padding: 1% 0 1% 0;
 }
 
-.sigrebadge-right-side .line-info span, .color-span {
+.accesscontrol-right-side .line-info span, .color-span {
 	padding: 1px 6px 1px 6px;
 	color: white;
 	border-radius: .25em;
 }
 
-.sigrebadge-card-list {
+.accesscontrol-card-list {
 	width: 550px;
 	min-height: 110px;
 	background-color: #fff;
