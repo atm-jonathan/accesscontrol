@@ -19,7 +19,7 @@
 
 /**
  * \file        class/codezone.class.php
- * \ingroup     sigrebadge
+ * \ingroup     accesscontrol
  * \brief       This file is a CRUD class file for CodeZone (Create/Read/Update/Delete)
  */
 
@@ -36,7 +36,7 @@ class CodeZone extends CommonObject
 	/**
 	 * @var string ID of module.
 	 */
-	public $module = 'sigrebadge';
+	public $module = 'accesscontrol';
 
 	/**
 	 * @var string ID to identify managed object.
@@ -46,7 +46,7 @@ class CodeZone extends CommonObject
 	/**
 	 * @var string Name of table without prefix where object is stored. This is also the key used for extrafields management.
 	 */
-	public $table_element = 'sigrebadge_codezone';
+	public $table_element = 'accesscontrol_codezone';
 
 	/**
 	 * @var int  	Does this object support multicompany module ?
@@ -60,7 +60,7 @@ class CodeZone extends CommonObject
 	public $isextrafieldmanaged = 1;
 
 	/**
-	 * @var string String with name of icon for codezone. Must be a 'fa-xxx' fontawesome code (or 'fa-xxx_fa_color_size') or 'codezone@sigrebadge' if picto is file 'img/object_codezone.png'.
+	 * @var string String with name of icon for codezone. Must be a 'fa-xxx' fontawesome code (or 'fa-xxx_fa_color_size') or 'codezone@accesscontrol' if picto is file 'img/object_codezone.png'.
 	 */
 	public $picto = 'fa-file';
 
@@ -212,7 +212,7 @@ class CodeZone extends CommonObject
 	// /**
 	//  * @var string    Name of subtable line
 	//  */
-	// public $table_element_line = 'sigrebadge_codezoneline';
+	// public $table_element_line = 'accesscontrol_codezoneline';
 
 	// /**
 	//  * @var string    Field with ID of parent key if this object has a parent
@@ -234,7 +234,7 @@ class CodeZone extends CommonObject
 	//  *               If name matches '@ClassNAme:FilePathClass;ParentFkFieldName' it will
 	//  *               call method deleteByParentField(parentId, ParentFkFieldName) to fetch and delete child object
 	//  */
-	// protected $childtablesoncascade = array('sigrebadge_codezonedet');
+	// protected $childtablesoncascade = array('accesscontrol_codezonedet');
 
 	// /**
 	//  * @var CodeZoneLine[]     Array of subtable lines
@@ -263,7 +263,7 @@ class CodeZone extends CommonObject
 		}
 
 		// Example to show how to set values of fields definition dynamically
-		/*if ($user->hasRight('sigrebadge', 'codezone', 'read')) {
+		/*if ($user->hasRight('accesscontrol', 'codezone', 'read')) {
 			$this->fields['myfield']['visible'] = 1;
 			$this->fields['myfield']['noteditable'] = 0;
 		}*/
@@ -608,8 +608,8 @@ class CodeZone extends CommonObject
 			return 0;
 		}
 
-		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge', 'codezone', 'write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge', 'codezone_advance', 'validate')))
+		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol', 'codezone', 'write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol', 'codezone_advance', 'validate')))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -686,15 +686,15 @@ class CodeZone extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->sigrebadge->dir_output.'/codezone/'.$oldref;
-				$dirdest = $conf->sigrebadge->dir_output.'/codezone/'.$newref;
+				$dirsource = $conf->accesscontrol->dir_output.'/codezone/'.$oldref;
+				$dirdest = $conf->accesscontrol->dir_output.'/codezone/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->sigrebadge->dir_output.'/codezone/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($conf->accesscontrol->dir_output.'/codezone/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -737,14 +737,14 @@ class CodeZone extends CommonObject
 			return 0;
 		}
 
-		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','sigrebadge_advance','validate'))))
+		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','accesscontrol_advance','validate'))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'SIGREBADGE_CODEZONE_UNVALIDATE');
+		return $this->setStatusCommon($user, self::STATUS_DRAFT, $notrigger, 'ACCESSCONTROL_CODEZONE_UNVALIDATE');
 	}
 
 	/**
@@ -761,14 +761,14 @@ class CodeZone extends CommonObject
 			return 0;
 		}
 
-		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','sigrebadge_advance','validate'))))
+		/* if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','accesscontrol_advance','validate'))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'SIGREBADGE_CODEZONE_CANCEL');
+		return $this->setStatusCommon($user, self::STATUS_CANCELED, $notrigger, 'ACCESSCONTROL_CODEZONE_CANCEL');
 	}
 
 	/**
@@ -785,14 +785,14 @@ class CodeZone extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','write'))
-		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('sigrebadge','sigrebadge_advance','validate'))))
+		/*if (! ((!getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','write'))
+		 || (getDolGlobalInt('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('accesscontrol','accesscontrol_advance','validate'))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
 		 }*/
 
-		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'SIGREBADGE_CODEZONE_REOPEN');
+		return $this->setStatusCommon($user, self::STATUS_VALIDATED, $notrigger, 'ACCESSCONTROL_CODEZONE_REOPEN');
 	}
 
 	/**
@@ -859,7 +859,7 @@ class CodeZone extends CommonObject
 			$label = implode($this->getTooltipContentArray($params));
 		}
 
-		$url = dol_buildpath('/sigrebadge/codezone_card.php', 1).'?id='.$this->id;
+		$url = dol_buildpath('/accesscontrol/codezone_card.php', 1).'?id='.$this->id;
 
 		if ($option !== 'nolink') {
 			// Add param to save lastsearch_values or not
@@ -1020,7 +1020,7 @@ class CodeZone extends CommonObject
 	{
 		// phpcs:enable
 		global $langs;
-		$langs->load("sigrebadge@sigrebadge");
+		$langs->load("accesscontrol@accesscontrol");
 
 		$this->labelStatus = array(			
 			self::STATUS_DRAFT => $langs->transnoentitiesnoconv('Draft'),
@@ -1138,22 +1138,22 @@ class CodeZone extends CommonObject
 	public function getNextNumRef()
 	{
 		global $langs, $conf;
-		$langs->load("sigrebadge@sigrebadge");
+		$langs->load("accesscontrol@accesscontrol");
 
-		if (!getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_NUMBER')) {
-			getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_NUMBER', 'mod_codezone_standard');
+		if (!getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_NUMBER')) {
+			getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_NUMBER', 'mod_codezone_standard');
 		}
 
-		if (getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_NUMBER')) {
+		if (getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_NUMBER')) {
 			$mybool = false;
 
-			$file = getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_NUMBER').".php";
-			$classname = getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_NUMBER');
+			$file = getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_NUMBER').".php";
+			$classname = getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_NUMBER');
 
 			// Include file with class
 			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
-				$dir = dol_buildpath($reldir."sigrebadge/core/modules/sigrebadge/");
+				$dir = dol_buildpath($reldir."accesscontrol/core/modules/accesscontrol/");
 
 				// Load file with numbering class (if found)
 				$mybool |= @include_once $dir.$file;
@@ -1206,19 +1206,19 @@ class CodeZone extends CommonObject
 		$result = 0;
 		$includedocgeneration = 0;
 
-		$langs->load("sigrebadge@sigrebadge");
+		$langs->load("accesscontrol@accesscontrol");
 
 		if (!dol_strlen($modele)) {
 			$modele = 'standard_codezone';
 
 			if (!empty($this->model_pdf)) {
 				$modele = $this->model_pdf;
-			} elseif (getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_PDF')) {
-				$modele = getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_PDF');
+			} elseif (getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_PDF')) {
+				$modele = getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_PDF');
 			}
 		}
 
-		$modelpath = "sigrebadge/core/modules/sigrebadge/doc/";
+		$modelpath = "accesscontrol/core/modules/accesscontrol/doc/";
 
 		if ($includedocgeneration && !empty($modele)) {
 			$result = $this->commonGenerateDocument($modelpath, $modele, $outputlangs, $hidedetails, $hidedesc, $hideref, $moreparams);
