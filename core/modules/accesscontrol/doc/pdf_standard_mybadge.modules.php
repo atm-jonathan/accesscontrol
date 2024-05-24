@@ -27,12 +27,12 @@
  */
 
 /**
- *  \file       core/modules/sigrebadge/doc/pdf_standard.modules.php
- *  \ingroup    sigrebadge
+ *  \file       core/modules/accesscontrol/doc/pdf_standard.modules.php
+ *  \ingroup    accesscontrol
  *  \brief      File of class to generate document from standard template
  */
 
-dol_include_once('/sigrebadge/core/modules/sigrebadge/modules_mybadge.php');
+dol_include_once('/accesscontrol/core/modules/accesscontrol/modules_mybadge.php');
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
@@ -250,16 +250,16 @@ class pdf_standard_mybadge extends ModelePDFMyBadge
 
 		//if (count($realpatharray) == 0) $this->posxpicture=$this->posxtva;
 
-		if ($conf->sigrebadge->dir_output) {
+		if ($conf->accesscontrol->dir_output) {
 			//$object->fetch_thirdparty();
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->sigrebadge->dir_output;
+				$dir = $conf->accesscontrol->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->sigrebadge->dir_output."/".$objectref;
+				$dir = $conf->accesscontrol->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 			if (!file_exists($dir)) {
@@ -835,8 +835,8 @@ class pdf_standard_mybadge extends ModelePDFMyBadge
 		pdf_pagehead($pdf, $outputlangs, $this->page_hauteur);
 
 		// Show Draft Watermark
-		if (getDolGlobalString('SIGREBADGE_DRAFT_WATERMARK') && $object->statut == $object::STATUS_DRAFT) {
-			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', dol_escape_htmltag(getDolGlobalString('SIGREBADGE_DRAFT_WATERMARK')));
+		if (getDolGlobalString('ACCESSCONTROL_DRAFT_WATERMARK') && $object->statut == $object::STATUS_DRAFT) {
+			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', dol_escape_htmltag(getDolGlobalString('ACCESSCONTROL_DRAFT_WATERMARK')));
 		}
 
 		$pdf->SetTextColor(0, 0, 60);
