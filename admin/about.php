@@ -17,9 +17,9 @@
  */
 
 /**
- * \file    sigrebadge/admin/about.php
- * \ingroup sigrebadge
- * \brief   About page of module SigreBadge.
+ * \file    accesscontrol/admin/about.php
+ * \ingroup accesscontrol
+ * \brief   About page of module AccessControl.
  */
 
 // Load Dolibarr environment
@@ -54,10 +54,10 @@ if (!$res) {
 // Libraries
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once '../lib/sigrebadge.lib.php';
+require_once '../lib/accesscontrol.lib.php';
 
 // Translations
-$langs->loadLangs(array("errors", "admin", "sigrebadge@sigrebadge"));
+$langs->loadLangs(array("errors", "admin", "accesscontrol@accesscontrol"));
 
 // Access control
 if (!$user->admin) {
@@ -83,9 +83,9 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $form = new Form($db);
 
 $help_url = '';
-$page_name = "SigreBadgeAbout";
+$page_name = "AccessControlAbout";
 
-llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-sigrebadge page-admin_about');
+llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-accesscontrol page-admin_about');
 
 // Subheader
 $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
@@ -93,11 +93,11 @@ $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/module
 print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
-$head = sigrebadgeAdminPrepareHead();
-print dol_get_fiche_head($head, 'about', $langs->trans($page_name), 0, 'sigrebadge@sigrebadge');
+$head = accesscontrolAdminPrepareHead();
+print dol_get_fiche_head($head, 'about', $langs->trans($page_name), 0, 'accesscontrol@accesscontrol');
 
-dol_include_once('/sigrebadge/core/modules/modSigreBadge.class.php');
-$tmpmodule = new modSigreBadge($db);
+dol_include_once('/accesscontrol/core/modules/modAccessControl.class.php');
+$tmpmodule = new modAccessControl($db);
 print $tmpmodule->getDescLong();
 
 // Page end
