@@ -17,9 +17,9 @@
  */
 
 /**
- * \file    sigrebadge/admin/setup.php
- * \ingroup sigrebadge
- * \brief   SigreBadge setup page.
+ * \file    accesscontrol/admin/setup.php
+ * \ingroup accesscontrol
+ * \brief   AccessControl setup page.
  */
 
 // Load Dolibarr environment
@@ -55,16 +55,16 @@ global $langs, $user;
 
 // Libraries
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
-require_once '../lib/sigrebadge.lib.php';
-dol_include_once('/sigrebadge/class/codezone.class.php');
-dol_include_once('/sigrebadge/lib/sigrebadge_codezone.lib.php');
-dol_include_once('/sigrebadge/core/modules/sigrebadge/doc/pdf_standard_codezone.modules.php');
+require_once '../lib/accesscontrol.lib.php';
+dol_include_once('/accesscontrol/class/codezone.class.php');
+dol_include_once('/accesscontrol/lib/accesscontrol_codezone.lib.php');
+dol_include_once('/accesscontrol/core/modules/accesscontrol/doc/pdf_standard_codezone.modules.php');
 
 // Translations
-$langs->loadLangs(array("admin", "sigrebadge@sigrebadge"));
+$langs->loadLangs(array("admin", "accesscontrol@accesscontrol"));
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array of hook context
-$hookmanager->initHooks(array('sigrebadgesetup', 'globalsetup'));
+$hookmanager->initHooks(array('accesscontrolsetup', 'globalsetup'));
 
 // Access control
 if (!$user->admin) {
@@ -81,8 +81,8 @@ $label = GETPOST('label', 'alpha');
 $scandir = GETPOST('scan_dir', 'alpha');
 $type = 'codezone';
 
-if (!getDolGlobalString('SIGREBADGE_CODEZONE_ADDON_NUMBER')) {
-	$conf->global->SIGREBADGE_CODEZONE_ADDON_NUMBER = 'mod_codezone_standard';
+if (!getDolGlobalString('ACCESSCONTROL_CODEZONE_ADDON_NUMBER')) {
+	$conf->global->ACCESSCONTROL_CODEZONE_ADDON_NUMBER = 'mod_codezone_standard';
 }
 
 
@@ -101,7 +101,7 @@ $formSetup = new FormSetup($db);
 // Enter here all parameters in your setup page
 
 // Setup conf for selection of an URL
-/*$item = $formSetup->newItem('SIGREBADGE_MYPARAM1');
+/*$item = $formSetup->newItem('ACCESSCONTROL_MYPARAM1');
 $item->fieldOverride = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'];
 $item->cssClass = 'minwidth500';
 */
@@ -110,24 +110,24 @@ $item = $formSetup->newItem('CODEZONE_PREFIX');
 $item->defaultFieldValue = 'CZ';
 /*
 // Setup conf for selection of a simple textarea input but we replace the text of field title
-$item = $formSetup->newItem('SIGREBADGE_MYPARAM3');
+$item = $formSetup->newItem('ACCESSCONTROL_MYPARAM3');
 $item->nameText = $item->getNameText().' more html text ';
 
 // Setup conf for a selection of a thirdparty
-$item = $formSetup->newItem('SIGREBADGE_MYPARAM4');
+$item = $formSetup->newItem('ACCESSCONTROL_MYPARAM4');
 $item->setAsThirdpartyType();
 
 // Setup conf for a selection of a boolean
-$formSetup->newItem('SIGREBADGE_MYPARAM5')->setAsYesNo();
+$formSetup->newItem('ACCESSCONTROL_MYPARAM5')->setAsYesNo();
 
 // Setup conf for a selection of an email template of type thirdparty
-$formSetup->newItem('SIGREBADGE_MYPARAM6')->setAsEmailTemplate('thirdparty');
+$formSetup->newItem('ACCESSCONTROL_MYPARAM6')->setAsEmailTemplate('thirdparty');
 
 // Setup conf for a selection of a secured key
-//$formSetup->newItem('SIGREBADGE_MYPARAM7')->setAsSecureKey();
+//$formSetup->newItem('ACCESSCONTROL_MYPARAM7')->setAsSecureKey();
 
 // Setup conf for a selection of a product
-$formSetup->newItem('SIGREBADGE_MYPARAM8')->setAsProduct();
+$formSetup->newItem('ACCESSCONTROL_MYPARAM8')->setAsProduct();
 
 // Add a title for a new section
 $formSetup->newItem('NewSection')->setAsTitle();
@@ -142,17 +142,17 @@ $TField = array(
 );
 
 // Setup conf for a simple combo list
-$formSetup->newItem('SIGREBADGE_MYPARAM9')->setAsSelect($TField);
+$formSetup->newItem('ACCESSCONTROL_MYPARAM9')->setAsSelect($TField);
 
 // Setup conf for a multiselect combo list
-$item = $formSetup->newItem('SIGREBADGE_MYPARAM10');
+$item = $formSetup->newItem('ACCESSCONTROL_MYPARAM10');
 $item->setAsMultiSelect($TField);
-$item->helpText = $langs->transnoentities('SIGREBADGE_MYPARAM10');
+$item->helpText = $langs->transnoentities('ACCESSCONTROL_MYPARAM10');
 
 
 
-// Setup conf SIGREBADGE_MYPARAM10
-$item = $formSetup->newItem('SIGREBADGE_MYPARAM10');
+// Setup conf ACCESSCONTROL_MYPARAM10
+$item = $formSetup->newItem('ACCESSCONTROL_MYPARAM10');
 $item->setAsColor();
 $item->defaultFieldValue = '#FF0000';
 $item->nameText = $item->getNameText().' more html text ';
@@ -211,7 +211,7 @@ if ($action == 'updateMask') {
 	$filefound = 0;
 	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
-		$file = dol_buildpath($reldir."sigrebadge/core/modules/sigrebadge/doc/pdf_".$modele."_".strtolower($tmpobjectkey).".modules.php", 0);
+		$file = dol_buildpath($reldir."accesscontrol/core/modules/accesscontrol/doc/pdf_".$modele."_".strtolower($tmpobjectkey).".modules.php", 0);
 		if (file_exists($file)) {
 			$filefound = 1;
 			$classname = "pdf_".$modele."_".strtolower($tmpobjectkey);
@@ -225,7 +225,7 @@ if ($action == 'updateMask') {
 		$module = new $classname($db);
 
 		if ($module->write_file($tmpobject, $langs) > 0) {
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=sigrebadge&file=SPECIMEN.pdf");
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=accesscontrol&file=SPECIMEN.pdf");
 			return;
 		} else {
 			setEventMessages($module->error, null, 'errors');
@@ -239,7 +239,7 @@ if ($action == 'updateMask') {
 	// TODO Check if numbering module chosen can be activated by calling method canBeActivated
 	$tmpobjectkey = GETPOST('object');
 	if (!empty($tmpobjectkey)) {
-		$constforval = 'SIGREBADGE_'.strtoupper($tmpobjectkey)."_ADDON";
+		$constforval = 'ACCESSCONTROL_'.strtoupper($tmpobjectkey)."_ADDON";
 		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
 	}
 } elseif ($action == 'set') {
@@ -250,7 +250,7 @@ if ($action == 'updateMask') {
 	if ($ret > 0) {
 		$tmpobjectkey = GETPOST('object');
 		if (!empty($tmpobjectkey)) {
-			$constforval = 'SIGREBADGE_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
+			$constforval = 'ACCESSCONTROL_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 			if (getDolGlobalString($constforval) == "$value") {
 				dolibarr_del_const($db, $constforval, $conf->entity);
 			}
@@ -260,7 +260,7 @@ if ($action == 'updateMask') {
 	// Set or unset default model
 	$tmpobjectkey = GETPOST('object');
 	if (!empty($tmpobjectkey)) {
-		$constforval = 'SIGREBADGE_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
+		$constforval = 'ACCESSCONTROL_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
 			// The constant that was read before the new set
 			// We therefore requires a variable to have a coherent view
@@ -276,7 +276,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'unsetdoc') {
 	$tmpobjectkey = GETPOST('object');
 	if (!empty($tmpobjectkey)) {
-		$constforval = 'SIGREBADGE_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
+		$constforval = 'ACCESSCONTROL_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 		dolibarr_del_const($db, $constforval, $conf->entity);
 	}
 }
@@ -290,9 +290,9 @@ if ($action == 'updateMask') {
 $form = new Form($db);
 
 $help_url = '';
-$page_name = "SigreBadgeSetup";
+$page_name = "AccessControlSetup";
 
-llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-sigrebadge page-admin');
+llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-accesscontrol page-admin');
 
 // Subheader
 $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
@@ -300,8 +300,8 @@ $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/module
 print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
-$head = sigrebadgeAdminPrepareHead();
-print dol_get_fiche_head($head, 'codezone', $langs->trans($page_name), -1, "sigrebadge@sigrebadge");
+$head = accesscontrolAdminPrepareHead();
+print dol_get_fiche_head($head, 'codezone', $langs->trans($page_name), -1, "accesscontrol@accesscontrol");
 
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("CodeZoneSetupPage").'</span><br><br>';
@@ -320,7 +320,7 @@ if ($action == 'edit') {
 }
 
 
-$moduledir = 'sigrebadge';
+$moduledir = 'accesscontrol';
 $myTmpObjects = array();
 // TODO Scan list of objects
 $myTmpObjects['codezone'] = array('label'=>'CodeZone', 'includerefgeneration'=>1, 'includedocgeneration'=>1, 'class'=>'CodeZone');
@@ -329,7 +329,7 @@ $myTmpObjects['codezone'] = array('label'=>'CodeZone', 'includerefgeneration'=>1
 foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 	if ($myTmpObjectArray['includerefgeneration']) {
 		/*
-		 * SigreBadge Numbering model
+		 * AccessControl Numbering model
 		 */
 		$setupnotempty++;
 		
@@ -390,7 +390,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 								print '</td>'."\n";
 
 								print '<td class="center">';
-								$constforvar = 'SIGREBADGE_'.strtoupper($myTmpObjectKey).'_ADDON';
+								$constforvar = 'ACCESSCONTROL_'.strtoupper($myTmpObjectKey).'_ADDON';
 								if (getDolGlobalString($constforvar) == $file) {
 									print img_picto($langs->trans("Activated"), 'switch_on');
 								} else {
@@ -533,7 +533,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 
 										// Default
 										print '<td class="center">';
-										$constforvar = 'SIGREBADGE_'.strtoupper($myTmpObjectKey).'_ADDON_PDF';
+										$constforvar = 'ACCESSCONTROL_'.strtoupper($myTmpObjectKey).'_ADDON_PDF';
 										
 										if (getDolGlobalString($constforvar) == $name) {
 											//print img_picto($langs->trans("Default"), 'on');
