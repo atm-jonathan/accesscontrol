@@ -18,23 +18,23 @@
 
 use Luracast\Restler\RestException;
 
-dol_include_once('/sigrebadge/class/mybadge.class.php');
+dol_include_once('/accesscontrol/class/mybadge.class.php');
 
 
 
 /**
- * \file    sigrebadge/class/api_sigrebadge.class.php
- * \ingroup sigrebadge
+ * \file    accesscontrol/class/api_accesscontrol.class.php
+ * \ingroup accesscontrol
  * \brief   File for API management of mybadge.
  */
 
 /**
- * API class for sigrebadge mybadge
+ * API class for accesscontrol mybadge
  *
  * @access protected
  * @class  DolibarrApiAccess {@requires user,external}
  */
-class SigreBadgeApi extends DolibarrApi
+class AccessControlApi extends DolibarrApi
 {
 	/**
 	 * @var MyBadge $mybadge {@type MyBadge}
@@ -72,7 +72,7 @@ class SigreBadgeApi extends DolibarrApi
 	 */
 	public function get($id)
 	{
-		if (!DolibarrApiAccess::$user->rights->sigrebadge->mybadge->read) {
+		if (!DolibarrApiAccess::$user->rights->accesscontrol->mybadge->read) {
 			throw new RestException(401);
 		}
 
@@ -81,7 +81,7 @@ class SigreBadgeApi extends DolibarrApi
 			throw new RestException(404, 'MyBadge not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('mybadge', $this->mybadge->id, 'sigrebadge_mybadge')) {
+		if (!DolibarrApi::_checkAccessToResource('mybadge', $this->mybadge->id, 'accesscontrol_mybadge')) {
 			throw new RestException(401, 'Access to instance id='.$this->mybadge->id.' of object not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -113,7 +113,7 @@ class SigreBadgeApi extends DolibarrApi
 		$obj_ret = array();
 		$tmpobject = new MyBadge($this->db);
 
-		if (!DolibarrApiAccess::$user->rights->sigrebadge->mybadge->read) {
+		if (!DolibarrApiAccess::$user->rights->accesscontrol->mybadge->read) {
 			throw new RestException(401);
 		}
 
@@ -207,7 +207,7 @@ class SigreBadgeApi extends DolibarrApi
 	 */
 	public function post($request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->rights->sigrebadge->mybadge->write) {
+		if (!DolibarrApiAccess::$user->rights->accesscontrol->mybadge->write) {
 			throw new RestException(401);
 		}
 
@@ -246,7 +246,7 @@ class SigreBadgeApi extends DolibarrApi
 	 */
 	public function put($id, $request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->rights->sigrebadge->mybadge->write) {
+		if (!DolibarrApiAccess::$user->rights->accesscontrol->mybadge->write) {
 			throw new RestException(401);
 		}
 
@@ -255,7 +255,7 @@ class SigreBadgeApi extends DolibarrApi
 			throw new RestException(404, 'MyBadge not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('mybadge', $this->mybadge->id, 'sigrebadge_mybadge')) {
+		if (!DolibarrApi::_checkAccessToResource('mybadge', $this->mybadge->id, 'accesscontrol_mybadge')) {
 			throw new RestException(401, 'Access to instance id='.$this->mybadge->id.' of object not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -294,7 +294,7 @@ class SigreBadgeApi extends DolibarrApi
 	 */
 	public function delete($id)
 	{
-		if (!DolibarrApiAccess::$user->rights->sigrebadge->mybadge->delete) {
+		if (!DolibarrApiAccess::$user->rights->accesscontrol->mybadge->delete) {
 			throw new RestException(401);
 		}
 		$result = $this->mybadge->fetch($id);
@@ -302,7 +302,7 @@ class SigreBadgeApi extends DolibarrApi
 			throw new RestException(404, 'MyBadge not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('mybadge', $this->mybadge->id, 'sigrebadge_mybadge')) {
+		if (!DolibarrApi::_checkAccessToResource('mybadge', $this->mybadge->id, 'accesscontrol_mybadge')) {
 			throw new RestException(401, 'Access to instance id='.$this->mybadge->id.' of object not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
