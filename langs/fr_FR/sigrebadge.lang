@@ -1,0 +1,75 @@
+# Copyright (C) 2024 Philippe GRAND <contact@atoo-net.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#
+# Generic
+#
+
+# Module label 'ModuleSigreBadgeName'
+ModuleSigreBadgeName = SigreBadge
+# Module description 'ModuleSigreBadgeDesc'
+ModuleSigreBadgeDesc = SigreBadge description
+
+#
+# Admin page
+#
+SigreBadgeSetup = Configuration de SigreBadge 
+Settings = Settings
+SigreBadgeSetupPage = Page de configuration pour les badges
+CodeZoneSetupPage = Page de configuration pour les codes zones
+SIGREBADGE_PREFIX = Choisissez un préfix
+CODEZONE_PREFIX = Choisissez un préfix
+CodesZones = Codes zones
+SIGREBADGE_MYPARAM1Tooltip = My param 1 tooltip
+SIGREBADGE_MYPARAM2=My param 2
+SIGREBADGE_MYPARAM2Tooltip=My param 2 tooltip
+
+
+#
+# About page
+#
+About = A propos
+SigreBadgeAbout = A propos de SigreBadge
+SigreBadgeAboutPage = SigreBadge about page
+
+#
+# Sample page
+#
+SigreBadgeArea = Accueil SigreBadge
+MyPageName = My page name
+NonFonctional = Non fonctionnel
+MyBadge = Badge
+ListMyBadge = Liste des badges
+NewMyBadge = Nouveau badge
+SigreBadgeDashboard = Espace gestion de badges
+MenuSigrebadge = BADGES
+MenuImmoActiveBadge  = Badges actifs
+MenuImmoNotActiveBadge  = Badges désactivés
+MyBadges = Les badges
+MenuCodeZone = CODES ZONES
+MenuActiveCodeZone  = Codes zones actifs
+MenuNotActiveCodeZone  = Codes zones désactivés
+CodeZone = Code Zone
+ListCodeZone = Liste des codes zones
+NewCodeZone = Nouveau code zone
+CodeZones = Les codes zones
+ValidateCodeZone = Validation du code zone 
+ConfirmActionCodeZone = Confirmez vous la validation de ce code zone ?
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
